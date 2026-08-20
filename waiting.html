@@ -91,15 +91,16 @@ a{color:inherit;}
 .jeu-lettre.worst{color:var(--mark);}
 .jeu-espace{display:inline-block;width:.3em;}
 
-/* Repères */
+/* Repères — lignes verticales à la position idéale */
 .jeu-repere{
-  position:absolute;top:0;bottom:0;width:1px;
-  background:var(--hair);pointer-events:none;
-  opacity:0;transition:opacity .2s var(--ease);
+  position:absolute;top:8px;bottom:8px;width:1px;
+  background:var(--hair);
+  pointer-events:none;
+  opacity:0;transition:opacity .25s var(--ease);
 }
 .show-guides .jeu-repere{opacity:1;}
 
-.jeu-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:20px;}
+.jeu-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:20px;}
 .jeu-btn{
   font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;
   text-transform:uppercase;background:none;border:1px solid var(--ink);
@@ -110,6 +111,12 @@ a{color:inherit;}
 .jeu-btn:active{transform:scale(.97);}
 .jeu-btn.primary{background:var(--ink);color:var(--paper);}
 .jeu-btn.primary:hover{background:var(--mark);border-color:var(--mark);}
+.jeu-btn.icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:42px;padding:0;border-radius:0;
+}
+.jeu-btn.icon svg{width:16px;height:16px;transition:transform .4s var(--ease);}
+.jeu-btn.icon:hover svg{transform:rotate(-360deg);}
 
 .jeu-score{
   font-size:14px;color:var(--grey);
@@ -196,14 +203,15 @@ a{color:inherit;}
 <a class="skip" href="#contenu">Aller au contenu</a>
 
 <div id="jeu" class="wrap" aria-label="Jeu de crénage typographique">
-  <p class="jeu-titre rise">L'espace entre les lettres</p>
-  <p class="jeu-sous rise">Replacez chaque lettre au bon endroit. Faites glisser ou utilisez les flèches du clavier. <span class="mono" style="font-size:11px">Shift + flèche = ±10px</span></p>
+  <p class="jeu-titre rise">Le site est en construction</p>
+  <p class="jeu-sous rise">En attendant, testez votre œil typographique. Replacez chaque lettre au bon endroit en la faisant glisser ou avec les flèches du clavier. <span class="mono" style="font-size:11px">Shift + flèche = ±10px</span></p>
   <p class="jeu-manche mono" aria-live="polite"></p>
   <div class="jeu-zone" role="group" aria-label="Lettres à ajuster">
     <div class="jeu-mot"></div>
   </div>
   <div class="jeu-actions">
     <button class="jeu-btn" id="btn-reperes" aria-pressed="false">Montrer les repères</button>
+    <button class="jeu-btn icon" id="btn-rejouer" aria-label="Rejouer la manche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
     <button class="jeu-btn primary" id="btn-verifier">Vérifier le crénage</button>
   </div>
   <p class="jeu-score mono" aria-live="polite"></p>
@@ -279,9 +287,9 @@ a{color:inherit;}
 
   /* ---- Config manches ---- */
   var manches=[
-    {mot:'ROJHAT',seed:101},
-    {mot:'PORTFOLIO',seed:202},
-    {mot:'EN CHANTIER',seed:303}
+    {mot:'HELLO WORLD',seed:101},
+    {mot:'CA JOUE',seed:202},
+    {mot:'BIEN JOUE',seed:303}
   ];
   var mancheIdx=0;
   var scores=[];
@@ -295,11 +303,12 @@ a{color:inherit;}
   var mancheEl=document.querySelector('.jeu-manche');
   var scoreEl=document.querySelector('.jeu-score');
   var btnReperes=document.getElementById('btn-reperes');
+  var btnRejouer=document.getElementById('btn-rejouer');
   var btnVerifier=document.getElementById('btn-verifier');
   var jeuEl=document.getElementById('jeu');
 
   function genDecalage(rng){
-    var v=Math.floor(rng()*23)+6;/* 6..28 */
+    var v=Math.floor(rng()*12)+3;/* 3..14 */
     return rng()<0.5?-v:v;
   }
 
@@ -359,18 +368,23 @@ a{color:inherit;}
       lettreEls.push(el);
     });
 
-    /* Créer repères (lignes à la position idéale de chaque lettre) */
+    /* Créer les repères (lignes aux bords gauche et droit de chaque lettre) */
     zone.querySelectorAll('.jeu-repere').forEach(function(r){r.remove();});
     requestAnimationFrame(function(){
       lettreEls.forEach(function(el,i){
         if(!el||el.classList.contains('fixe'))return;
         var rect=el.getBoundingClientRect();
         var zoneRect=zone.getBoundingClientRect();
-        var idealLeft=rect.left-zoneRect.left-decalagesActuels[i];
-        var line=document.createElement('div');
-        line.className='jeu-repere';
-        line.style.left=idealLeft+'px';
-        zone.appendChild(line);
+        var left=rect.left-zoneRect.left-decalagesActuels[i];
+        var right=left+rect.width;
+        var l1=document.createElement('div');
+        l1.className='jeu-repere';
+        l1.style.left=left+'px';
+        zone.appendChild(l1);
+        var l2=document.createElement('div');
+        l2.className='jeu-repere';
+        l2.style.left=right+'px';
+        zone.appendChild(l2);
       });
     });
   }
@@ -381,7 +395,7 @@ a{color:inherit;}
     var el=lettreEls[idx];
     el.style.transform='translateX('+newOffset+'px)';
     el.setAttribute('aria-valuenow',String(newOffset));
-    var ch=el.textContent;
+    var ch=el.childNodes[0].textContent;
     el.setAttribute('aria-label','Lettre '+ch+', décalage '+newOffset+' pixels');
   }
 
@@ -427,6 +441,11 @@ a{color:inherit;}
     var step=e.shiftKey?10:1;
     if(e.key==='ArrowRight'){e.preventDefault();updateLettre(idx,decalagesActuels[idx]+step);}
     else if(e.key==='ArrowLeft'){e.preventDefault();updateLettre(idx,decalagesActuels[idx]-step);}
+  });
+
+  /* ---- Rejouer ---- */
+  btnRejouer.addEventListener('click',function(){
+    initManche();
   });
 
   /* ---- Repères ---- */
