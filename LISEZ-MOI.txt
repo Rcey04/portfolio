@@ -1,0 +1,33 @@
+PORTFOLIO ROJHAT CEYLAN
+=======================
+
+CONTENU DU DOSSIER
+
+  index.html                site d'accueil, index des cinq projets
+  projet-primmoclean.html   etude de cas PrimmoClean
+  images/                   tous les visuels + le detail des fichiers a fournir
+  apercus/                  copies autonomes, images embarquees dans le fichier
+
+
+POUR REGARDER TOUT DE SUITE
+
+  Double-cliquez sur index.html. Tout fonctionne en local, sans serveur.
+  Les fichiers du dossier apercus/ servent uniquement si vous voulez envoyer
+  une page seule par email ou par message. Ils sont plus lourds.
+
+
+POUR METTRE EN LIGNE
+
+  1. Allez sur netlify.com/drop
+  2. Glissez ce dossier entier (pas le dossier apercus, inutile en ligne)
+  3. Vous obtenez une adresse en quelques secondes, sans creer de compte
+  4. Ajoutez ce lien dans la signature de vos emails et en haut de votre CV
+
+
+CE QU'IL RESTE A FAIRE
+
+  - Ajouter vos visuels manquants : voir images/LISEZ-MOI.txt
+  - Verifier les textes de l'etude de cas, c'est vous qui avez mene le projet
+  - Dupliquer projet-primmoclean.html pour les autres projets :
+    copier le fichier, renommer, remplacer textes et images,
+    puis ajouter le lien "Lire l'etude de cas" dans index.html

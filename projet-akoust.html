@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akoust Atelier, étude de cas, Rojhat Ceylan</title>
+<meta name="description" content="Akoust Atelier, lutherie. Étude de cas.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Akoust Atelier, étude de cas">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFBF9;--ink:#0C0D0F;--grey:#8A8D93;--hair:#E2E1DC;--mark:#D8232A;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+.mono{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;}
+a{color:inherit;}
+.wrap{max-width:1440px;margin:0 auto;padding:26px 32px 0;}
+.narrow{max-width:660px;}
+
+/* Barre de progression de lecture */
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--mark);z-index:99;
+  transition:width .12s linear;}
+
+/* Retour */
+.back{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-size:11px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--grey);margin-bottom:44px;
+  transition:color .3s var(--ease),gap .4s var(--ease);}
+.back:hover,.back:focus-visible{color:var(--ink);gap:15px;}
+
+/* Hero */
+.eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-bottom:16px;}
+h1{font-size:clamp(38px,7.6vw,104px);font-weight:800;letter-spacing:-.05em;line-height:.9;
+  text-transform:uppercase;margin-bottom:30px;}
+.lede{font-size:clamp(17px,2vw,22px);line-height:1.45;max-width:56ch;color:#2A2D32;margin-bottom:14px;}
+.live{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;
+  border-bottom:1px solid var(--ink);padding-bottom:2px;margin-top:12px;
+  transition:color .3s var(--ease),border-color .3s var(--ease);}
+.live:hover,.live:focus-visible{color:var(--mark);border-color:var(--mark);}
+
+/* Colonnes de compétences */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:34px;
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--hair);
+  padding:26px 0 30px;margin:56px 0 0;}
+.skills h3{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);
+  margin-bottom:12px;font-weight:500;}
+.skills li{list-style:none;font-size:13.5px;padding:3px 0;}
+
+/* Sections */
+section{padding:96px 0 0;}
+section h2{font-size:clamp(24px,3.6vw,44px);font-weight:600;letter-spacing:-.032em;
+  line-height:1.08;margin-bottom:22px;max-width:20ch;}
+section p{font-size:16px;line-height:1.6;max-width:62ch;margin-bottom:14px;color:#2A2D32;}
+.goals{list-style:none;margin-top:24px;max-width:62ch;}
+.goals li{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:15px 0;
+  border-bottom:1px solid var(--hair);font-size:15px;}
+.goals li span{color:var(--grey);font-size:11px;padding-top:3px;}
+
+/* Images */
+.shot{background:#EFEEEA;border:1px solid var(--hair);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;margin-top:44px;}
+.shot.full{aspect-ratio:16/9;}
+.shot.tall{aspect-ratio:4/3;}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;}
+figure.shot{flex-direction:column;}
+figure.shot img{flex:1 1 auto;min-height:0;}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:44px;}
+.duo .shot{margin-top:0;}
+.hint{font-size:10.5px;color:var(--grey);text-align:center;padding:18px;line-height:1.8;}
+.hint b{display:block;color:var(--ink);font-weight:500;}
+figcaption{font-size:11px;color:var(--grey);margin-top:9px;letter-spacing:.02em;}
+
+/* Palette */
+.palette{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
+.chip{width:80px;}
+.chip i{display:block;height:80px;border:1px solid rgba(0,0,0,.1);}
+.chip span{display:block;font-size:9.5px;color:var(--grey);margin-top:7px;letter-spacing:.04em;}
+
+/* Résultat */
+.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:28px;
+  border-top:1px solid var(--ink);padding-top:28px;margin-top:44px;}
+.results dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:8px;}
+.results dd{font-size:15px;line-height:1.4;}
+
+/* Suivant */
+.next{margin-top:110px;border-top:1px solid var(--ink);padding-top:26px;}
+.next a{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  text-decoration:none;padding:20px 0;transition:padding-left .5s var(--ease);}
+.next a:hover,.next a:focus-visible{padding-left:20px;}
+.next .k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);}
+.next .v{font-size:clamp(24px,4vw,44px);font-weight:600;letter-spacing:-.03em;text-transform:uppercase;}
+
+footer{padding:90px 0 56px;}
+footer h2{font-size:clamp(30px,6vw,86px);font-weight:800;letter-spacing:-.05em;line-height:.92;
+  text-transform:uppercase;margin-bottom:30px;}
+footer h2 a{text-decoration:none;transition:color .3s var(--ease);}
+footer h2 a:hover,footer h2 a:focus-visible{color:var(--mark);}
+.f-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px 40px;
+  border-top:1px solid var(--ink);padding-top:16px;font-size:12px;color:var(--grey);}
+.f-row a{text-decoration:none;}
+.f-row a:hover{color:var(--ink);}
+
+.rise{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+.rise.in{opacity:1;transform:none;}
+:focus-visible{outline:2px solid var(--mark);outline-offset:4px;}
+
+@media (max-width:900px){
+  .wrap{padding:20px 20px 0;}
+  section{padding-top:64px;}
+  .duo{grid-template-columns:1fr;}
+  .next{margin-top:70px;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *{transition-duration:.01ms!important;}
+  .rise{opacity:1;transform:none;}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div class="wrap">
+  <a class="back mono" href="index.html"><span aria-hidden="true">&#8592;</span> Tous les projets</a>
+  <header class="rise">
+    <p class="eyebrow mono">Akoust Atelier, lutherie</p>
+    <h1>78 heures pour un atelier</h1>
+    <p class="lede">Akoust Atelier est un atelier de lutherie situé à Grancy, dans le canton de Vaud. Le luthier travaillait sans identité visuelle, dans un métier où la réputation se construit sur le bouche-à-oreille et où l'image sert surtout à confirmer le sérieux du premier contact.
+
+Ce projet est mon travail pratique individuel de fin d'apprentissage. Je l'ai mené seul en 78 heures, de la recherche à la livraison, et documenté dans un rapport de 68 pages.</p>
+    
+  </header>
+
+  <div class="skills rise">
+    <div><h3>Identité</h3><ul><li>Logo et déclinaisons</li><li>Charte graphique</li><li>Palette et typographie</li></ul></div>
+    <div><h3>Print</h3><ul><li>Carte de visite</li><li>Papeterie</li><li>Fichiers d'impression</li></ul></div>
+    <div><h3>Documentation</h3><ul><li>Rapport de 68 pages</li><li>Cahier des charges</li><li>Recherche et benchmark</li></ul></div>
+    <div><h3>Projet</h3><ul><li>Cadrage du besoin</li><li>Relation client</li><li>Gestion du temps</li></ul></div>
+  </div>
+
+  <figure class="shot full rise"><img src="images/akoust-hero-desktop.jpg" alt="Akoust Atelier" loading="eager" fetchpriority="high"></figure>
+
+  <main>
+    <section class="rise">
+      <h2>Les objectifs du projet</h2>
+      <ul class="goals">
+        <li><span class="mono">01</span><span>Donner à un artisan une identité visuelle à la hauteur de son savoir-faire, sans tomber dans le cliché du bois et de la musique.</span></li>
+        <li><span class="mono">02</span><span>Concevoir des supports imprimés utilisables au quotidien : carte de visite, papeterie, pochette.</span></li>
+        <li><span class="mono">03</span><span>Documenter chaque décision dans un rapport structuré, lisible par un jury d'examen.</span></li>
+        <li><span class="mono">04</span><span>Tenir le délai de 78 heures sans sacrifier la qualité de la production.</span></li>
+      </ul>
+    </section>
+
+    <section class="rise">
+      <h2>Un métier de précision, une image de précision</h2>
+      <p>La lutherie est un métier où chaque geste compte, où un dixième de millimètre change le son. L'identité visuelle devait porter cette précision sans l'alourdir. Le logo s'appuie sur des formes géométriques simples, lisibles en petit sur une étiquette collée à l'intérieur d'un instrument comme en grand sur un panneau d'atelier.
+
+Le travail de recherche a commencé par une immersion dans l'atelier, puis par un benchmark des lutheries en Suisse et en Europe.</p>
+      <figure class="shot full"><img src="images/akoust-page-01.jpg" alt="Page de couverture du rapport Akoust Atelier" loading="lazy" decoding="async"><figcaption>Page de couverture du rapport de TPI.</figcaption></figure>
+    </section>
+
+    <section class="rise">
+      <h2>Du logo aux supports</h2>
+      <p>Une fois le logo validé, j'ai décliné l'identité sur l'ensemble des supports : carte de visite recto verso, papier à en-tête, pochette de correspondance.</p>
+      <figure class="shot full"><img src="images/akoust-page-05.jpg" alt="Recherches de logo" loading="lazy" decoding="async"><figcaption>Recherches et pistes de logo.</figcaption></figure>
+      <figure class="shot full"><img src="images/akoust-page-10.jpg" alt="Logo final" loading="lazy" decoding="async"><figcaption>Logo retenu et ses déclinaisons.</figcaption></figure>
+    </section>
+
+
+
+    <section class="rise">
+      <h2>Ce que le projet a produit</h2>
+      <dl class="results">
+        <div><dt class="mono">Cadre</dt><dd>Travail pratique individuel, CFC médiamaticien</dd></div>
+        <div><dt class="mono">Durée</dt><dd>78 heures, mai 2024</dd></div>
+        <div><dt class="mono">Livrables</dt><dd>Logo, charte, papeterie, rapport de 68 pages</dd></div>
+        <div><dt class="mono">Rôle</dt><dd>Seul sur l'ensemble du projet</dd></div>
+      </dl>
+    </section>
+
+    <nav class="next rise" aria-label="Projet suivant">
+      <a href="projet-primmoclean.html">
+        <span class="k mono">Projet suivant</span>
+        <span class="v">PrimmoClean</span>
+      </a>
+    </nav>
+  </main>
+
+  <footer class="rise">
+    <h2><a href="mailto:rojhatceylan4@gmail.com">Parlons<br>de votre projet</a></h2>
+    <div class="f-row mono">
+      <a href="mailto:rojhatceylan4@gmail.com">rojhatceylan4@gmail.com</a>
+      <a href="tel:+41 78 746 24 33">+41 78 746 24 33</a>
+      <span>Lausanne, Suisse</span>
+      <span>&#169; 2026</span>
+    </div>
+  </footer>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById('bar');
+  function prog(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', prog, {passive:true});
+  window.addEventListener('resize', prog);
+  prog();
+
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.06, rootMargin:'0px 0px -50px 0px'});
+    document.querySelectorAll('.rise').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.rise').forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>
